@@ -24,7 +24,7 @@ public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Size(min=3, max = 6, message="El titulo del Post debe contener entre 3 a 15 caracteres")
+	@Size(min=3, max = 15, message="El titulo del Post debe contener entre 3 a 15 caracteres")
 	private String titulo;
 	@NotEmpty(message="El campo contenido no puede estar vacio!!")
 	private String contenido;
@@ -38,7 +38,6 @@ public class Post {
 	@PrePersist
 	private void prePersist() {
 		this.create_at = new Date();
-		
 	}	
 
 	public Post() {
