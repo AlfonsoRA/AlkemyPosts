@@ -17,23 +17,15 @@
 	<br>
 
 	<div class="container m-6">
-		<form class="row g-3 mt-2" th:action="@{/save}" th:object="${post}"
-			method="post">
-			<input type="hidden" th:field="*{id}">
-			<input type="hidden" th:field="*{create_at}">
-			<input type="hidden" th:field="*{eliminado}">
-			<div th:if="${#fields.hasErrors('*')}" class="alert-danger" role="alert">
-				Por favor corrija los siguientes errores:
-				<ul>
-					<li th:each="error: ${#fields.hasErrors('*')}" th:text="${error}">
-				</ul>
-			</div>
+		<form class="row g-3 mt-2" th:action="@{/save}" th:object="${post}"	method="post" enctype="multipart/form-data">
+			<input type="hidden" th:field="*{id}"> 
+			<input th:if="*{create_at != null}" type="hidden" th:field="*{create_at}">
 			<hr>
 			<div class="mb-3 row">
 				<label for="input" class="col-sm-2 col-form-label">Titulo</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="titulo" name="titulo"
-						th:field="*{titulo}">
+					<input type="text" class="form-control" id="titulo" name="titulo" th:field="*{titulo}">
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></small>
 				</div>
 			</div>
 			<div class="mb-3 row">
@@ -46,16 +38,16 @@
 			<div class="mb-3 row">
 				<label for="input" class="col-sm-2 col-form-label">Contenido</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="contenido"
-						name="contenido" th:field="*{contenido}">
+					<input type="text" class="form-control" id="contenido" name="contenido" th:field="*{contenido}">
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('contenido')}" th:errors="*{contenido}"></small>
 				</div>
 			</div>
-			<!-- 	  <div class="mb-3 row"> -->
-			<!--           <div class="form-group"> -->
-			<!--             <label for="imagen" class="col-sm-2 col-form-label">Imagen</label> -->
-			<!--             <input type="file" id="imagen" name="archivoImagen" th:field="*{imagen}/> -->
-			<!--           </div>  -->
-			<!--        </div> -->
+<!-- 		    <div class="mb-3 row"> -->
+<!-- 	          <div class="form-group"> -->
+<!-- 	            <label for="imagen" class="col-sm-2 col-form-label">Imagen</label> -->
+<!-- 	            <input type="file" id="imagen" name="archivoImagen"/> -->
+<!-- 	           </div>   -->
+<!-- 	        </div>  -->
 			<div class="col-sm-6">
 				<button type="submit" class="btn btn-primary">Guardar</button>
 			</div>
