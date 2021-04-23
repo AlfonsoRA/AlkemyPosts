@@ -13,12 +13,17 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 /**
  * @author Futuro
  *
  */
 @Entity 
 @Table(name = "posts")
+@SQLDelete(sql= "UPDATE posts SET eliminado = true WHERE id = ?")
+@Where(clause = "eliminado = false")
 public class Post {
 	
 	@Id
@@ -30,7 +35,7 @@ public class Post {
 	private String contenido;
 	private String imagen;
 	private String categoria;
-	
+	private Boolean eliminado;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date create_at;
@@ -38,6 +43,7 @@ public class Post {
 	@PrePersist
 	private void prePersist() {
 		this.create_at = new Date();
+		this.eliminado = false;
 	}	
 
 	public Post() {
@@ -92,9 +98,17 @@ public class Post {
 		this.create_at = create_at;
 	}
 
+	public Boolean getEliminado() {
+		return eliminado;
+	}
+
+	public void setEliminado(Boolean eliminado) {
+		this.eliminado = eliminado;
+	}
+
 	@Override
 	public String toString() {
 		return "Post [id=" + id + ", titulo=" + titulo + ", contenido=" + contenido + ", imagen=" + imagen
-				+ ", categoria=" + categoria + ", create_at=" + create_at + "]";
+				+ ", categoria=" + categoria + ", eliminado=" + eliminado +", create_at=" + create_at + "]";
 	}
 }
