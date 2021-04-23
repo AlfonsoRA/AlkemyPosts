@@ -17,9 +17,10 @@
 	<br>
 
 	<div class="container m-6">
-		<form class="row g-3 mt-2" th:action="@{/save}" th:object="${post}"	method="post" enctype="multipart/form-data">
+		<form class="row g-3 mt-2" th:action="@{/save}" th:object="${post}"	method="post">
 			<input type="hidden" th:field="*{id}"> 
 			<input th:if="*{create_at != null}" type="hidden" th:field="*{create_at}">
+			<input type="hidden" th:field="*{eliminado}">
 			<hr>
 			<div class="mb-3 row">
 				<label for="input" class="col-sm-2 col-form-label">Titulo</label>
